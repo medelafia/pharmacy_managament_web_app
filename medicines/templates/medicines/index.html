@@ -12,7 +12,7 @@
     <div class="container py-5">
         <div class="d-flex align-items-center justify-content-between">
             <h1 class="text-primary text-uppercase">medicines management </h1>
-            <button class="btn btn-primary"><a href="/medicines/addMedicine/" class="text-white text-decoration-none">add medicine</a></button>
+            <button class="btn btn-primary"><a href="/medicines/add/" class="text-white text-decoration-none">add medicine</a></button>
         </div>
         <table class="table my-2">
             <thead>
@@ -37,8 +37,12 @@
                             <td>{{ medicine.stock }}</td>
                             <td>{{ medicine.requires_prescription }}</td>
                             <td class="d-flex justify-content-start">
-                                <button class="btn me-2"><a href="text-decoration-none"><i class="fa-solid fa-trash text-danger "></i></a></button>
-                                <button class="btn me-2"><a href="text-decoration-none"><i class="fa-solid fa-trash text-warning"></i></a></button>
+                                <form action="/medicines/delete/" method="POST">
+                                    {% csrf_token %}
+                                    <input type="text" name="id" hidden value="{{medicine.id}}">
+                                    <button class="btn me-2"><i class="fa-solid fa-trash text-danger"></i></button>
+                                </form>
+                                <a href="/medicines/update?id={{medicine.id}}" class="btn me-2 text-decoration none"><i class="fa-solid fa-pen-to-square text-warning"></i></a>
                             </td>
                         </tr>
                     {% endfor %}
