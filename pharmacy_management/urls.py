@@ -4,5 +4,6 @@ from django.shortcuts import render
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("medicines/" , include("medicines.urls"))
-]
+    path("medicines/" , include("medicines.urls")),
+    path("clients/", include("clients.urls"))
+    ]

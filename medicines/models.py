@@ -7,4 +7,4 @@ class Medicine(models.Model) :
     price = models.FloatField("price") 
     stock = models.IntegerField("stock") 
     requires_prescription = models.BooleanField("requires prescription") 
-
+    

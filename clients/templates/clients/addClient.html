@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>update medicine</title>
+    <title>Add Client</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css"
         integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -21,33 +21,30 @@
 
 <body class="d-flex justify-content-center">
     <div class="container py-5 w-50">
-        <h1 class="text-primary text-capitalize">update medicine</h1>
+        {% if error %}
+        <div class="alert alert-danger">
+            {{ error }}
+        </div>
+        {% endif %}
+        <h1 class="text-primary text-capitalize">Add Client</h1>
         <form action="" method="post" class="form mt-5">
             {% csrf_token %}
-            <div class="form-group">
-                <label for="name">name</label>
-                {{form.name}}
+            <div class="form-group mb-3">
+                <label for="name">Name</label>
+                {{ form.name }}
             </div>
-            <div class="form-group">
-                <label for="category">category</label>
-                {{form.category}}
+            <div class="form-group mb-3">
+                <label for="email">Email</label>
+                {{ form.email }}
             </div>
-            <div class="form-group">
-                <label for="price">price</label>
-                {{form.price}}
+            <div class="form-group mb-3">
+                <label for="phone">Phone</label>
+                {{ form.phone }}
             </div>
-            <div class="form-group">
-                <label for="stock">stock</label>
-                {{form.stock}}
-            </div>
-            <div class="form-group">
-                <label for="requires_prescription">requires prescription</label>
-                {{form.requires_prescription}}
-            </div>
-            <button class="btn btn-primary w-100 mt-5" type="submit">update</button>
+            <button class="btn btn-primary w-100 mt-4" type="submit">Add Client</button>
         </form>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js"
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.bundle.min.js"
         integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>

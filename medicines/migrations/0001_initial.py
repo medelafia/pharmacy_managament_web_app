@@ -22,4 +22,5 @@ class Migration(migrations.Migration):
                 ('requires_prescription', models.BooleanField(verbose_name='requires prescription')),
             ],
         ),
+        
     ]
