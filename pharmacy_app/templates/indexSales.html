@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sales</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/css/bootstrap.min.css" integrity="sha512-Ez0cGzNzHR1tYAv56860NLspgUGuQw16GiOOp/I2LuTmpSK9xDXlgJz3XN4cnpXWDmkNBKXR/VDMTCnAaEooxA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+    <div class="container py-5">
+        <div class="d-flex align-items-center justify-content-between">
+            <div class="d-flex align-items-center">
+                <a href="/" class="btn btn-outline-primary me-3">#</a>
+                <h1 class="text-primary text-capitalize">sales management</h1>
+            </div>
+            <button class="btn btn-outline-primary"><a href="/sales/add/" class="text-decoration-none">add sale</a></button>
+        </div>
+        <table class="table my-2">
+            <thead>
+                <tr>
+                    <td>id</td>
+                    <td>client </td>
+                    <td>medicines</td>
+                    <td>date</td>
+                    <td>actions</td>
+                </tr>
+            </thead>
+            <tbody>
+                {% if sales %}
+                    {% for sale in sales %}
+                        <tr>
+                            <td>{{ sale.id }}</td>
+                            <td>{{ sale.client.name }}</td>
+                            <td>
+                               <ul>
+                                    {% for medicine in sale.medicines.all %}
+                                    <li>{{ medicine.name}}</li>
+                                    {% endfor%}
+                               </ul> 
+                            </td>
+                            <td>{{ sale.date }}</td>
+                            <td class="d-flex justify-content-start align-items-center">
+                                <form action="/sales/delete/" method="POST">
+                                    {% csrf_token %}
+                                    <input type="text" name="id" hidden value="{{sale.id}}">
+                                    <button class="btn me-2"><i class="fa-solid fa-trash text-danger"></i></button>
+                                </form>
+                                <a href="/sales/update?id={{sale.id}}" class="btn me-2 text-decoration none"><i class="fa-solid fa-pen-to-square text-warning"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr><td colspan="5">no elements found</td></tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.0.1/js/bootstrap.min.js" integrity="sha512-EKWWs1ZcA2ZY9lbLISPz8aGR2+L7JVYqBAYTq5AXgBkSjRSuQEGqWx8R1zAX16KdXPaCjOCaKE8MCpU0wcHlHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
+</html>
