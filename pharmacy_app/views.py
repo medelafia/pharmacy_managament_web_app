@@ -18,7 +18,7 @@ def addMedicine(request) :
         form = forms.MedicineForm(request.POST) 
         if form.is_valid() : 
             form.save() 
-            return HttpResponseRedirect("/medicines" , {"message success"})
+            return HttpResponseRedirect("/medicines?message=medicine added successfully")
         else : 
             return HttpResponseRedirect("/medicines/add/" , {"error" : "not valid information" , "form" : form })
     else : 
@@ -29,7 +29,7 @@ def deleteMedicine(request) :
         if request.POST.get("id") : 
             medicine = models.Medicine.objects.get(id = request.POST.get("id")) 
             medicine.delete() 
-            return HttpResponseRedirect("/medicines")
+            return HttpResponseRedirect("/medicines?message=medicine deleted successfully")
 
 
 def updateMedicine(request) : 
@@ -38,14 +38,14 @@ def updateMedicine(request) :
         form = forms.MedicineForm(request.POST , instance=medicine ) 
         if form.is_valid() : 
             form.save() 
-            return HttpResponseRedirect("/medicines")
+            return HttpResponseRedirect("/medicines?message=medicine updated successfully")
     else : 
-        return render(request , "updateMedicine.html" , {"form" :forms.MedicineForm(instance=medicine)}) 
+        return render(request , "updateMedicine.html" , {"form" :forms.MedicineForm(instance=medicine) }) 
 
 
 def indexClient(request):
     clients = models.Client.objects.all()
-    return render(request, "indexClients.html", {"clients": clients, "message": request.GET.get("message")})
+    return render(request, "indexClients.html", { "clients": clients , "message" : request.GET.get("message")})
 
 def addTemplate(request):
     form = forms.ClientForm()
@@ -57,9 +57,9 @@ def addClient(request):
         form = forms.ClientForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect("/clients?message=Client added successfully")
+            return HttpResponseRedirect("/clients?message=the client addedd successfully")
         else:
-            return HttpResponseRedirect("/clients/add/?error=Invalid information")
+            return render(request , "addClient.html" , { "form" : form})
     else:
         form = forms.ClientForm()
         return render(request, "addClient.html", {"form": form})
@@ -83,16 +83,20 @@ def updateClient(request):
 
 def indexSale(request) : 
     sales = models.Sale.objects.all()
-    return render(request , "indexSales.html" , { "sales" : sales }) 
+    return render(request , "indexSales.html" , { "sales" : sales , "message" : request.GET.get("message") }) 
 
 def addSale(request) : 
     if request.method == "POST" :
         form = forms.SaleForm(request.POST) 
         if form.is_valid() : 
             sale_instance = form.save(commit=False)
+            #for medicine in sale_instance.medicines.all() : 
+             #   print(medicine) 
             sale_instance.date = datetime.datetime.now().date()
             sale_instance.save()
-            return HttpResponseRedirect("/sales")
+
+            form.save_m2m()
+            return HttpResponseRedirect("/sales?message=sale added successfully")
         else :
             print("not valid")
             return render(request , "addSale.html" , {'form' : form })
@@ -104,7 +108,7 @@ def deleteSale(request) :
             if request.POST.get("id") : 
                 sale = models.Sale.objects.get(id = request.POST.get("id")) 
                 sale.delete() 
-                return HttpResponseRedirect("/sales")
+                return HttpResponseRedirect("/sales?message=sale deleted successfully")
 
 def updateSale(request) : 
     sale = get_object_or_404(models.Sale , id=request.GET.get("id")) 
@@ -112,7 +116,7 @@ def updateSale(request) :
         form = forms.SaleForm(request.POST , instance=sale ) 
         if form.is_valid() : 
             form.save()
-            return HttpResponseRedirect("/sales")
+            return HttpResponseRedirect("/sales?message=sale updated successfully")
         else : 
             return render(request , "updateSale.html" , {"form" : forms.SaleForm(instance=sale)}) 
     else : 

@@ -38,5 +38,5 @@ class SaleForm(ModelForm) :
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.fields["medicines"].widget.attrs.update({'class' : "p-3 d-flex justify-content-between rounded border align-items-center" , "id" : "medicines"})
+        self.fields["medicines"].widget.attrs.update({'class' : "p-3 d-flex flex-column rounded border align-items-start" , "id" : "medicines"})
         self.fields["client"].widget.attrs.update({'class' : "form-select" , "id" : "client"})

@@ -15,19 +15,34 @@
 </head>
 <body class="d-flex justify-content-center">
     <div class="container py-5 w-50">
-        {% if error %} 
-            error
-        {% endif %}
         <h1 class="text-primary text-capitalize">add medicine</h1>
         <form action="" method="post" class="form mt-5" >
             {% csrf_token %}
             <div class="form-group" >
                 <label for="name">name</label>
                 {{form.name}}
+                <div class="py-1">
+                    {% if form.errors.name %}
+                     <ul>
+                        {% for error in form.errors.name %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
             </div>
             <div class="form-group">
                 <label for="category">category</label>
                 {{form.category}}
+                <div class="py-1">
+                    {% if form.errors.category %}
+                     <ul>
+                        {% for error in form.errors.qategory %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
             </div>
             <div class="form-group">
                 <label for="price">price</label>

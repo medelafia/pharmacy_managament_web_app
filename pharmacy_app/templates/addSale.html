@@ -16,17 +16,22 @@
         body {
             width: 100%;
         }
-    
+        #medicines > div {
+            padding: 5px 10px ;
+        }
+        #medicines > div > label {
+            display: flex;
+            align-items: center ; 
+            justify-content: center;
+        }
+        #medicines > div > label > input{
+            margin-right:  20px ;
+        }
     </style>
 </head>
 
 <body class="d-flex justify-content-center">
     <div class="container py-5 w-50">
-        {% if error %}
-        <div class="alert alert-danger">
-            {{ error }}
-        </div>
-        {% endif %}
         <h1 class="text-primary text-capitalize">Add Client</h1>
         <form action="" method="post" class="form mt-5">
             {% csrf_token %}
@@ -38,6 +43,15 @@
             <div class="form-group mb-3">
                 <label for="medicines">medicines</label>
                 {{ form.medicines }}
+                <div class="py-1">
+                    {% if form.errors.medicines %}
+                     <ul>
+                        {% for error in form.errors.medicines %}
+                            <p class="text-danger">{{ error }}</p>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                </div>
             </div>
             <button class="btn btn-primary w-100 mt-4" type="submit">Add Sale</button>
         </form>
